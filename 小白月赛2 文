@@ -1,0 +1,82 @@
+/*链接：https://ac.nowcoder.com/acm/contest/86/G
+来源：牛客网
+
+输入描述:
+第一行两个整数 N,MN,M，表示有 NN 道选择题和 MM 个参赛男友。第二行一个长为 NN 的字符串，表示标准答案。其中第 ii 个字母表示第 ii 个选择题的答案。保证所有字母在 A,B,C,DA,B,C,D 中。接下去 2M2M 行，每两行表示一个参赛男友：  · 第一行一个字符串，表示参赛者姓名，保证姓名仅由大小写字母组成； · 第二行一个长为 NN 的字符串，表示该参赛者的答案。其中第 ii 个字母表示该参赛者对于第 ii 个选择题的答案。保证所有字母在 A,B,C,D,XA,B,C,D,X 中。XX 表示该参赛者未作答此题。
+输出描述:
+输出共两行，第一行是最高分的参赛男友姓名，第二行为其分数。分数为 100100 分制，保留两位小数。若有多人同分，输出字典序最小的姓名。 
+
+
+示例1
+
+
+
+输入
+复制
+
+5 3
+ADBBC
+spiderman
+ADBAC
+niconico
+BDXBC
+ekstieks
+ACBBC
+
+
+
+输出
+复制
+
+ekstieks
+80.00
+
+*/
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath>
+#include <list>
+#include <stack>
+#include <vector>
+#include <set>
+#include <map>
+#include <queue>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+#define ll long long
+const long maxn=1e6+5;
+const ll mod=1e9+7;
+ 
+char answer[100005],name[100],maxname[100];
+ 
+int main()
+{
+    long n,m,maxr,r,i,j;
+    char c;
+    scanf("%ld%ld",&n,&m);
+    scanf("%s",answer);
+    maxr=-1;
+    strcpy(name,"");
+    for (i=1;i<=m;i++)
+    {
+        scanf("%s\n",name);
+        r=0;
+        for (j=0;j<n;j++)
+        {
+            scanf("%c",&c);
+            if (c==answer[j])
+                r++;
+        }
+        if (r>maxr || (r==maxr && strcmp(name,maxname)<0))
+        {
+            maxr=r;
+            strcpy(maxname,name);
+        }
+    }
+    printf("%s\n",maxname);
+    printf("%.2lf\n",100.0*maxr/n);
+    return 0;
+}
