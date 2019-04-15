@@ -1,0 +1,75 @@
+/*
+给定一数组  求数组内有多少个区间（可以为1）和 小于m
+链接：https://ac.nowcoder.com/acm/contest/624/G
+来源：牛客网
+
+示例1
+
+
+
+输入
+复制
+
+1
+13 10
+1 2 2 6 6 5 4 8 4 6 1 6 5
+
+
+
+输出
+复制
+
+Case #1: 20
+*
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <map>
+#include <set>
+#include <iostream>
+#include <cassert>
+using namespace std;
+
+const int N = 100010;
+ll a[N];
+ 
+
+int main() {
+    int t, tcase = 1;
+    cin >>t;
+    while(t--){
+        //dasdasdadadasdasdadd
+        ll n, m;
+        cin >> n >> m;
+         for(int i = 0 ; i < n; i++){
+            scanf("%lld", &a[i]);
+         }
+         int isdgasiygdiasdas;
+         ll ans = 0;
+         ll cnt = 0;
+         int l = 0, r = 0;
+         while(l < n && r < n){
+            if((a[r] + cnt) < m && r == n-1){
+                ans += (r-l+1);
+                l++;
+            }
+            else if(a[r] + cnt >= m){
+                if(l == r) l++, r++;
+                else{
+                    ans += (r-l);
+                    cnt -= a[l];
+                    l++;
+                }
+            }else{
+                cnt += a[r];
+                r++;
+            }
+         }
+         //dasdhoashdoahdo
+         printf("Case #%d: %lld\n", tcase++, ans);
+    }
+    return 0;
+}
