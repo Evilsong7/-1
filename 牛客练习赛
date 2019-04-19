@@ -1,0 +1,59 @@
+/*
+链接：https://ac.nowcoder.com/acm/contest/634/A
+来源：牛客网
+
+小y有一块长度为n的布匹。颜色全部为0。他要给这个布匹染色。他总共有m种染料。小y认为一种染料用多次是不和谐的。所以每种染料会被用刚好一次。也就是说小y要给这块布匹染m次色。第i次会把LiLi到RiRi这个区间染成颜色i。现在给出最终布匹每段的颜色。请你输出一种染色方案。数据保证有解
+输入描述:
+输入共两行。第一行两个个正整数n,m，表示布匹的长度和染料的数量第二行n个用空格隔开的正整数，第i个数字aiai表示第i个布匹的颜色。
+输出描述:
+输出m行。第i行包含两个正整数Li,RiLi,Ri,表示第i次染色的区间。
+
+
+示例1
+
+
+
+输入
+复制
+
+3 3
+1 2 3
+
+
+
+输出
+复制
+
+1 3
+2 3
+3 3
+
+const int maxn = 1e5 + 10 ;
+
+int l[maxn] , r[maxn];
+int n ;
+int num[maxn] ;
+int m ;
+
+int main ()
+{
+    scanf ("%d%d" , &n , &m) ;
+    for (int i = 1 ; i <= m ; ++i)
+    {
+        l[i] = INF ;
+        r[i] = -1 ;
+    }
+    for (int i = 1 ; i <= n ; ++i)
+    {
+        scanf ("%d" , &num[i]) ;
+        if (i < l[num[i]])
+            l[num[i]] = i ;
+        if (i > r[num[i]])
+            r[num[i]] = i ;
+    }
+    for (int i = 1 ; i <= m ; ++i)
+    {
+        printf ("%d %d\n" , l[i] , r[i]) ;
+    }
+}
+
