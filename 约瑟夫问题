@@ -1,0 +1,28 @@
+/*n个人(n<=100)围成一圈,从第一个人开始报数,数到m的人出列,
+再由下一个人重新从1开始报数,数到m的人再出圈,……依次类推,直到所有的人都出圈,请输出依次出圈人的编号.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main()
+{
+    queue<int>q;
+    int n,m;
+    cin >> n >> m;
+    for(int i=1;i<=n;i++){
+        q.push(i);
+    }
+    int temp=0;
+    while(!q.empty()){
+        temp++;
+        int temp1=q.front();
+        q.pop();
+        if(temp==m){
+                cout << temp1 << " ";
+                temp=0;
+            }
+        else q.push(temp1);
+    }
+    return 0;
+}
