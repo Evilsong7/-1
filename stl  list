@@ -1,0 +1,56 @@
+/*一个学校里老师要将班上
+NN
+N个同学排成一列，同学被编号为
+1∼N1\sim N
+1∼N，他采取如下的方法：
+先将
+11
+1号同学安排进队列，这时队列中只有他一个人；
+2−N2-N
+2−N号同学依次入列，编号为i的同学入列方式为：老师指定编号为i的同学站在编号为
+1∼(i−1)1\sim (i -1)
+1∼(i−1)中某位同学（即之前已经入列的同学）的左边或右边；
+从队列中去掉
+M(M<N)M(M<N)
+M(M<N)个同学，其他同学位置顺序不变。
+在所有同学按照上述方法队列排列完毕后，老师想知道从左到右所有同学的编号。
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+typedef list<int>::iterator tor;
+int main()
+{
+    int n;
+    cin >> n;
+    list <int>l ;
+    l.push_back(1);
+
+    tor it;
+
+    for(int i=2;i<=n;i++){
+        int k,p;
+        cin >> k >> p;
+
+        it=find(l.begin(),l.end(),k);
+        if(p==1){
+            l.insert(++it,i);
+        }
+        else l.insert(it,i);
+    }
+    int m;
+    cin >> m;
+    while(m--){
+        int x;
+        cin >> x;
+        it=find(l.begin(),l.end(),x);
+        if(it==l.end()) continue;
+        l.erase(it);
+    }
+    for(it=l.begin();it!=l.end();it++){
+        cout << *it<< " ";
+    }
+    return 0;
+}
