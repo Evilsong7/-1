@@ -1,0 +1,37 @@
+/*有一天Miss Quan出了一个题，给出一个长度为的数组 
+Miss Quan说给我计算下这个权值等于多少，然后随手写了一个式子，把她的小伙伴们都给惊呆了，这是什么鬼...... 
+
+比如 
+听到这里，小伙伴们说这不是很简单吗，于是写出了下面的代码: 
+ 
+Miss Quan会心一笑，大家意识到事情并不简单，这个解法时间复杂度太高了，你能想出更好的计算Value的方法吗？只需要输出Value的值即可。 
+*/
+
+#include <stdio.h>
+#define LL long long
+ 
+int k ;
+int n ;
+const int MAXN = 5e4 + 10 ;
+LL ans[MAXN] ;
+LL num[MAXN] ;
+LL res = 0 ;
+int main ()
+{
+    scanf ("%d" , &k ) ;
+    while (k--)
+    {
+        res = 0 ;
+        scanf ("%d" , &n) ;
+        for (int i = 1 ; i <= n ; ++i)
+        {
+            scanf ("%lld" , &num[i]) ;
+            res += num[i] * num[i] * (n - 1) ;
+            ans[i] = ans[i - 1] + num[i] ;
+ 
+        }
+        for (int i = 1 ; i < n ; ++i)
+            res -= 2 * num[i] * (ans[n] - ans[i]) ;
+        printf ("%lld\n" , res) ;
+    }
+}
