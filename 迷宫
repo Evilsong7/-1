@@ -1,0 +1,97 @@
+#include <iostream>
+#include <queue>
+#include <map>
+#include <vector>
+#include <cstring>
+using namespace std;
+#define rep(i, a, n) for(int i = a; i < n; i++)
+
+const int maxn=1e6;
+char mpt[1005][1005];
+int vis[1005][1005];
+int dir[4][2] = {1, 0, -1, 0, 0, 1, 0, -1};
+int sx, sy;
+
+struct Men{
+    int x,y;
+}men[maxn];
+vector <int> V[maxn];
+map <pair<int ,int >,int > mp;
+struct Node {
+    int x, y, st;
+};
+int n, m;
+queue <Node > q;
+int check(int x, int y) {
+    if(x >= 0 && x < n && y >= 0 && y < m
+    && mpt[x][y] != '#' && vis[x][y] == 0) return 1;
+    return 0;
+}
+
+int bfs() {
+    while(!q.empty()) q.pop();
+    q.push(Node{sx, sy, 0});
+    vis[sx][sy] = 1;
+    while(!q.empty()) {
+        Node t = q.front();
+        q.pop();
+        if(mpt[t.x][t.y] == 'E') {
+            return t.st;
+        }
+        if(mpt[t.x][t.y]=='*'){
+            int temp=mp[make_pair(t.x,t.y)];
+            for(int i=0;i<V[temp].size();i++){
+                int dx=men[V[temp][i]].x;
+                int dy=men[V[temp][i]].y;
+                if(check(dx,dy)){
+                    vis[dx][dy] = 1;
+                    q.push(Node{dx, dy, t.st + 1});
+                }
+            }
+        }
+        for(int i = 0; i < 4; i++) {
+            int dx = t.x + dir[i][0];
+            int dy = t.y + dir[i][1];
+            if(check(dx, dy)){
+                vis[dx][dy] = 1;
+                q.push(Node{dx, dy, t.st + 1});
+            }
+        }
+    }
+    return -1;
+}
+
+int main() {
+    while(cin >> n >> m){
+        mp.clear();
+        for(int i=0;i<m*n;i++) V[i].clear();
+       // q.clear();
+        memset (vis, 0, sizeof(vis));
+        for(int i = 0; i < n; i++)
+            cin >> mpt[i];
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(mpt[i][j] == 'S')
+                {
+                    sx = i;
+                    sy = j;
+                    break;
+                }
+            }
+        }
+        int t;
+        cin >> t;
+        for(int i=0;i<t;i++){
+            cin >> men[i].x >> men[i].y;
+            mp[make_pair(men[i].x,men[i].y)]=i;
+        }
+        for(int i=0;i<t;i++){
+            for(int j=0;j<i;j++){
+                if(men[i].x==men[j].x||men[i].y==men[j].y) V[i].push_back(j);
+            }
+        }
+        int ans = bfs();
+        cout << ans << endl;
+        }
+    return 0;
+}
